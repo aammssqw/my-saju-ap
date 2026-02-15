@@ -81,12 +81,30 @@ const App = () => {
 
   return (
     <div className="max-w-md mx-auto px-6 py-12 min-h-screen flex flex-col">
-      <header className="text-center mb-8">
-        <div className="inline-block px-4 py-1 border border-amber-500/30 rounded-full mb-4">
+      <header className="text-center mb-10 relative">
+        <div className="inline-block px-4 py-1 border border-amber-500/30 rounded-full mb-8 relative z-20">
           <span className="text-[10px] text-amber-500 font-bold tracking-[0.3em]">PREMIUM FORTUNE 2026</span>
         </div>
-        <h1 className="text-4xl font-serif font-black text-white tracking-widest mb-2 gold-glow">딱이만 사주</h1>
-        <p className="text-zinc-500 text-[10px] font-light uppercase tracking-widest">Master of Destiny & Harmony</p>
+        
+        {/* 헤더 로고 및 텍스트 배치 */}
+        <div className="relative inline-block mb-4">
+          {/* 로고 이미지 배경 배치 */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-60 scale-[2.2] -translate-y-2 pointer-events-none">
+            <img 
+              src="https://raw.githubusercontent.com/ai-gen-images/storage/main/saju_logo.png" 
+              alt="Logo" 
+              className="w-24 h-24 object-contain rounded-full"
+              onError={(e) => {
+                // 이미지 로드 실패 시 원형 박스로 대체
+                (e.target as any).style.display = 'none';
+              }}
+            />
+          </div>
+          {/* 텍스트 가독성을 위해 drop-shadow 강화 */}
+          <h1 className="text-5xl font-serif font-black text-white tracking-widest relative z-10 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">딱이만 사주</h1>
+        </div>
+        
+        <p className="text-zinc-500 text-[10px] font-light uppercase tracking-widest relative z-10 mt-4">Master of Destiny & Harmony</p>
       </header>
 
       {!sajuResult ? (
@@ -129,7 +147,8 @@ const App = () => {
                 <h3 className="text-amber-500 text-[10px] font-black tracking-widest uppercase flex items-center gap-2">
                   <span className="w-1.5 h-1.5 bg-amber-500 rounded-full"></span> 타고난 본질
                 </h3>
-                <p className="text-lg font-serif text-white italic leading-relaxed">"{sajuResult.essence}"</p>
+                {/* 기울임(italic) 제거 및 정자로 변경하여 가독성 증대 */}
+                <p className="text-lg font-serif text-white leading-relaxed">"{sajuResult.essence}"</p>
               </div>
 
               <div className="relative pt-8 border-t border-white/10">
@@ -140,11 +159,27 @@ const App = () => {
                         <span className="text-amber-500 text-2xl">🔒</span>
                       </div>
                       <p className="text-white font-bold text-sm">상세 분석 내용이 잠겨있습니다.</p>
-                      <p className="text-zinc-500 text-[11px] mt-2 leading-relaxed">2026년 병오년의 상세 재물운과<br/>인연운을 보시려면 코드를 입력하세요.</p>
+                      
+                      {/* 사장님 요청: 메인에서 다루는 구체적인 상담 항목 노출 */}
+                      <div className="mt-4 mb-6 grid grid-cols-2 gap-2">
+                        {[
+                          { icon: '💰', text: '2026 금전운' },
+                          { icon: '🏢', text: '이직/직장운' },
+                          { icon: '💖', text: '애정/연애운' },
+                          { icon: '📈', text: '사업/성공운' }
+                        ].map(item => (
+                          <div key={item.text} className="text-[9px] bg-white/5 px-2 py-2 rounded-lg text-zinc-300 border border-white/5 flex items-center justify-center gap-1.5 font-bold">
+                            <span>{item.icon}</span>
+                            <span>{item.text}</span>
+                          </div>
+                        ))}
+                      </div>
+                      
+                      <p className="text-zinc-500 text-[11px] leading-relaxed">2026년 병오년의 상세 풀이를 위해<br/>1:1 문의를 통해 상담 코드를 발급받으세요.</p>
                     </div>
                     
                     <a href={KAKAO_LINK} target="_blank" className="bg-white text-black w-full py-4 rounded-xl font-black text-xs hover:bg-amber-400 transition-colors mb-6 shadow-xl flex items-center justify-center gap-2">
-                      카톡으로 1:1 상담 코드 받기
+                      카톡으로 1:1 문의 하기
                     </a>
 
                     <div className="w-full pt-6 border-t border-white/10">
@@ -186,10 +221,18 @@ const App = () => {
                   <p className="text-amber-500 text-sm font-bold leading-relaxed text-center italic">“ {sajuResult.advice} ”</p>
                 </div>
               </div>
+
+              {/* 사장님 요청: 맹신 금물 경고 문구 추가 */}
+              <div className="mt-8 text-center px-4 pt-6 border-t border-white/5">
+                <p className="text-zinc-700 text-[9px] leading-relaxed uppercase tracking-tighter">
+                  ※ Disclaimer: 본 서비스의 사주 풀이는 명리학적 통계를 바탕으로 한 참고 자료일 뿐입니다. <br/>
+                  삶의 모든 선택은 본인의 몫이며, 결과에 대한 법적 책임은 지지 않습니다. <br/> 
+                  건강한 미래를 설계하기 위한 긍정적인 가이드로만 활용하시길 바랍니다.
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* 상담 메뉴판 - 사장님과 연결되는 핵심 구좌 */}
           {isUnlocked && (
             <div className="animate-fade space-y-8 mt-12 px-2">
               <div className="text-center">
@@ -216,12 +259,12 @@ const App = () => {
               <div className="bg-zinc-900/50 p-6 rounded-[2.5rem] border border-white/5 space-y-6">
                 <div className="text-center space-y-2">
                   <p className="text-amber-500 text-[10px] font-black tracking-widest uppercase">Direct Inquiry</p>
-                  <p className="text-white text-base font-bold">궁금한 점을 선생님께 물어보세요</p>
-                  <p className="text-zinc-500 text-[11px]">카톡 오픈채팅으로 실시간 상담이 가능합니다.</p>
+                  <p className="text-white text-base font-bold">더 깊은 상담이 필요하신가요?</p>
+                  <p className="text-zinc-500 text-[11px]">카톡 오픈채팅으로 1:1 정밀 분석이 가능합니다.</p>
                 </div>
                 <a href={KAKAO_LINK} target="_blank" className="w-full bg-[#FEE500] text-[#191919] font-black py-5 rounded-2xl shadow-2xl flex items-center justify-center gap-3 active:scale-95 transition-all text-sm">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.477 3 2 6.477 2 10.75c0 2.76 1.84 5.19 4.6 6.51-.15.53-.55 1.93-.63 2.23-.1.38.15.38.3.28.13-.08 2.05-1.4 2.87-1.96.93.22 1.9.34 2.86.34 5.523 0 10-3.477 10-7.75S17.523 3 12 3z"/></svg>
-                  지금 바로 1:1 카톡 상담하기
+                  카톡으로 1:1 문의 하기
                 </a>
               </div>
             </div>
