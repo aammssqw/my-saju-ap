@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>딱이만 사주 - 프리미엄 운명 분석 리포트</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Inter:wght@300;400;600;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --dark-bg: #030304; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--dark-bg);
+            color: #f4f4f5;
+            margin: 0; padding: 0;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        .font-serif { font-family: 'Noto Serif KR', serif; }
+        .mystic-gradient {
+            background: 
+                radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.08) 0%, transparent 70%),
+                radial-gradient(circle at 0% 100%, rgba(245, 158, 11, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 100% 50%, rgba(245, 158, 11, 0.03) 0%, transparent 40%),
+                #030304;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.015);
+            backdrop-filter: blur(60px);
+            -webkit-backdrop-filter: blur(60px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .premium-shadow {
+            box-shadow: 0 80px 160px -40px rgba(0, 0, 0, 0.98);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade { animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .glass-panel { background: white !important; border: 1px solid #eee !important; box-shadow: none !important; backdrop-filter: none !important; }
+            .text-white, .text-zinc-200, .text-zinc-300 { color: black !important; }
+            .bg-gradient-to-b, .bg-gradient-to-r { background: #f0f0f0 !important; color: black !important; border-bottom: 3px solid #000 !important; -webkit-print-color-adjust: exact; }
+            .filter { filter: none !important; }
+            .opacity-10, .opacity-0 { opacity: 1 !important; }
+            .blur-2xl, .blur-3xl { filter: none !important; display: block !important; }
+            .absolute.inset-x-0.bottom-40 { display: none !important; }
+            h2, h3, h4, p { color: black !important; }
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.41.0",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "vite": "https://esm.sh/vite@^7.3.1"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="mystic-gradient min-h-screen">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
